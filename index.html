@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Number Whitelist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #60a5fa;
+      --primary-extra-light: #bfdbfe;
+      --secondary: #3b82f6;
+      --secondary-light: #dbeafe;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --gray-dark: #64748b;
+      --gray-light: #e2e8f0;
+      --gray-extra-light: #f1f5f9;
+      --success: #10b981;
+      --success-light: #d1fae5;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--gray-dark);
+      font-size: 1.15rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .stats-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: white;
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-light);
+      transition: var(--transition);
+      min-width: 220px;
+    }
+
+    .stats-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stats-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--primary-extra-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .stats-content {
+      text-align: left;
+    }
+
+    .stats-label {
+      font-size: 0.875rem;
+      color: var(--gray-dark);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .stats-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .card {
+      background-color: white;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 3rem;
+      border: 1px solid var(--gray-light);
+      transition: var(--transition);
+    }
+
+    .card-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card-description {
+      color: var(--gray-dark);
+      font-size: 0.95rem;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    .input-field {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      z-index: 2;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-light);
+      background-color: var(--light);
+      color: var(--dark);
+      font-size: 1rem;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    input::placeholder {
+      color: var(--gray);
+      opacity: 0.7;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    #checkBtn {
+      background-color: var(--gray-extra-light);
+      color: var(--dark);
+    }
+
+    #checkBtn:hover {
+      background-color: var(--gray-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    #addBtn {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    #addBtn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .status-display {
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      color: var(--dark);
+      font-size: 0.95rem;
+      border-left: 4px solid var(--gray);
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background-color: var(--gray-extra-light);
+    }
+
+    .status-display i {
+      margin-top: 0.15rem;
+    }
+
+    .status-display.success {
+      background-color: var(--success-light);
+      border-left-color: var(--success);
+    }
+
+    .status-display.error {
+      background-color: var(--danger-light);
+      border-left-color: var(--danger);
+    }
+
+    .status-display.warning {
+      background-color: var(--warning-light);
+      border-left-color: var(--warning);
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin: 2rem 0 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .table-container {
+      background-color: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      margin-bottom: 3rem;
+      border: 1px solid var(--gray-light);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: var(--gray-extra-light);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-active {
+      background-color: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-inactive {
+      background-color: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--gray);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .empty-icon {
+      font-size: 2.5rem;
+      color: var(--gray-light);
+      opacity: 0.7;
+    }
+
+    .empty-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .empty-subtext {
+      font-size: 0.9rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-xl);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 1000;
+      max-width: 350px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.success {
+      background-color: var(--success);
+    }
+
+    .toast.error {
+      background-color: var(--danger);
+    }
+
+    .toast.warning {
+      background-color: var(--warning);
+    }
+
+    .toast-icon {
+      font-size: 1.25rem;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .card {
+        padding: 1.75rem;
+      }
+
+      .stats-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stats-card {
+        width: 100%;
+      }
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-xl);
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 100;
+      border: none;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .fab.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fab:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .fab i {
+      font-size: 1.5rem;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark);
+      color: var(--light);
+      text-align: center;
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+      font-weight: 400;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Number format helper */
+    .format-helper {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Action buttons */
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 0.25rem;
+      border-radius: 4px;
+    }
+
+    .action-btn:hover {
+      color: var(--primary);
+      background-color: var(--primary-extra-light);
+    }
+
+    /* Confirmation modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: white;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: var(--shadow-xl);
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+
+    .modal-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-body {
+      margin-bottom: 2rem;
+      color: var(--gray-dark);
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .modal-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .modal-btn-cancel {
+      background-color: var(--gray-extra-light);
+      color: var(--dark);
+    }
+
+    .modal-btn-confirm {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      background-color: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-shield-alt"></i> WhatsApp Number Whitelist</h1>
+      <p class="subtitle">Manage and verify phone numbers that are authorized to access your services via WhatsApp</p>
+      
+      <div class="stats-container">
+        <div class="stats-card">
+          <div class="stats-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stats-content">
+            <div class="stats-label">Total Whitelisted Numbers</div>
+            <div class="stats-value" id="totalRequest">0</div>
+          </div>
+        </div>
+        
+        <div class="stats-card">
+          <div class="stats-icon" style="background-color: var(--success-light); color: var(--success);">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stats-content">
+            <div class="stats-label">Active Numbers</div>
+            <div class="stats-value" id="activeNumbers">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="fas fa-user-plus"></i> Add or Check Number
+        </div>
+        <div class="card-description">
+          Enter a WhatsApp number to check its status or add it to the whitelist
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="nomorInput" class="input-label">WhatsApp Number</label>
+        <div class="input-field">
+          <i class="fas fa-phone-alt input-icon"></i>
+          <input type="text" id="nomorInput" placeholder="Example: 6281234567890" autocomplete="off">
+        </div>
+        <div class="format-helper">
+          <i class="fas fa-info-circle"></i> Format: Country code + number (e.g., 6281234567890 for Indonesia)
+        </div>
+      </div>
+      
+      <div class="button-group">
+        <button id="checkBtn" onclick="cekStatus()">
+          <i class="fas fa-search"></i> Check Status
+        </button>
+        <button id="addBtn" onclick="tambahNomor()">
+          <i class="fas fa-plus"></i> Add to Whitelist
+        </button>
+      </div>
+      
+      <div class="status-display" id="statusDisplay">
+        <i class="fas fa-info-circle"></i> Enter a WhatsApp number to check or add it to the whitelist.
+      </div>
+    </div>
+    
+    <h2>
+      <i class="fas fa-list-ol"></i> Whitelisted Numbers
+    </h2>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Phone Number</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tabelNomor">
+          <tr>
+            <td colspan="3" class="empty-state">
+              <div class="empty-icon">
+                <i class="far fa-folder-open"></i>
+              </div>
+              <div class="empty-text">No numbers whitelisted yet</div>
+              <div class="empty-subtext">Add numbers using the form above to get started</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle toast-icon"></i>
+    <span class="toast-message"></span>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="confirmationModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Confirm Removal</div>
+      </div>
+      <div class="modal-body" id="modalBody">
+        Are you sure you want to remove this number from the whitelist?
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn-cancel" onclick="hideModal()">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" onclick="confirmRemove()">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // GitHub configuration
+    const OWNER = 'LingOffc'
+    const REPO = 'database';
+    const FILE = 'database.json';
+    const GITHUB_TOKEN = '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';// Replace with your GitHub token
+
+    // DOM elements
+    const nomorInput = document.getElementById('nomorInput');
+    const statusDisplay = document.getElementById('statusDisplay');
+    const tabelNomor = document.getElementById('tabelNomor');
+    const totalRequest = document.getElementById('totalRequest');
+    const activeNumbers = document.getElementById('activeNumbers');
+    const toast = document.getElementById('toast');
+    const toastMessage = toast.querySelector('.toast-message');
+    const fab = document.querySelector('.fab');
+    const confirmationModal = document.getElementById('confirmationModal');
+    const modalBody = document.getElementById('modalBody');
+
+    // State variables
+    let numbersList = [];
+    let numberToRemove = null;
+
+    // Show/hide FAB based on scroll position
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        fab.classList.add('visible');
+      } else {
+        fab.classList.remove('visible');
+      }
+    });
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show modal
+    function showModal(number) {
+      numberToRemove = number;
+      modalBody.textContent = `Are you sure you want to remove ${formatPhoneNumber(number)} from the whitelist?`;
+      confirmationModal.classList.add('active');
+    }
+
+    // Hide modal
+    function hideModal() {
+      confirmationModal.classList.remove('active');
+      numberToRemove = null;
+    }
+
+    // Confirm removal
+    async function confirmRemove() {
+      if (numberToRemove) {
+        const success = await updateNomor(numberToRemove, 'remove');
+        if (success) {
+          showToast('Number removed successfully', 'success');
+          hideModal();
+        }
+      }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'info', duration = 3000) {
+      // Clear any existing toasts
+      toast.className = 'toast';
+      toast.classList.add('show', type);
+      
+      // Set icon based on type
+      const icon = toast.querySelector('.toast-icon');
+      if (type === 'success') {
+        icon.className = 'fas fa-check-circle toast-icon';
+      } else if (type === 'error') {
+        icon.className = 'fas fa-exclamation-circle toast-icon';
+      } else if (type === 'warning') {
+        icon.className = 'fas fa-exclamation-triangle toast-icon';
+      } else {
+        icon.className = 'fas fa-info-circle toast-icon';
+      }
+      
+      toastMessage.textContent = message;
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, duration);
+    }
+
+    // Get file SHA from GitHub
+    async function getFileSha() {
+      try {
+        const response = await axios.get(
+          `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`,
+          { headers: { Authorization: `token ${GITHUB_TOKEN}` } }
+        );
+        return response.data.sha;
+      } catch (error) {
+        console.error('Error getting file SHA:', error);
+        return null;
+      }
+    }
+
+    // Get current content from GitHub
+    async function getCurrentContent() {
+      try {
+        const response = await axios.get(
+          `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`,
+          { headers: { Authorization: `token ${GITHUB_TOKEN}` } }
+        );
+        const content = atob(response.data.content);
+        return JSON.parse(content);
+      } catch (error) {
+        return { nomor: [] }; // Return empty array if file doesn't exist
+      }
+    }
+
+    // Update numbers on GitHub
+    async function updateNomor(number, action = 'add') {
+      try {
+        // Validate phone number format
+        if (!/^(\+?\d{1,3})?\d{9,15}$/.test(number)) {
+          showToast('Invalid number format. Use international format (e.g., 6281234567890)', 'error');
+          return false;
+        }
+
+        const sha = await getFileSha();
+        const currentContent = await getCurrentContent();
+        
+        if (!Array.isArray(currentContent.nomor)) {
+          currentContent.nomor = [];
+        }
+
+        if (action === 'remove') {
+          currentContent.nomor = currentContent.nomor.filter(n => n !== number);
+        } else {
+          if (currentContent.nomor.includes(number)) {
+            showToast('Number already exists in whitelist', 'warning');
+            return false;
+          }
+          currentContent.nomor.push(number);
+        }
+
+        const newContent = btoa(JSON.stringify(currentContent, null, 2));
+
+        await axios.put(
+          `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`,
+          {
+            message: `${action === 'remove' ? 'Remove' : 'Add'} number`,
+            content: newContent,
+            sha
+          },
+          { headers: { Authorization: `token ${GITHUB_TOKEN}` } }
+        );
+
+        loadNomor();
+        showToast(`Number ${action === 'remove' ? 'removed' : 'added'} successfully!`, 'success');
+        return true;
+      } catch (error) {
+        console.error('Error updating number:', error);
+        showToast('Error updating whitelist', 'error');
+        return false;
+      }
+    }
+
+    // Load numbers from GitHub
+    async function loadNomor() {
+      try {
+        const data = await getCurrentContent();
+        tabelNomor.innerHTML = '';
+        numbersList = data.nomor || [];
+
+        // Update stats
+        totalRequest.textContent = numbersList.length;
+        activeNumbers.textContent = numbersList.length;
+
+        if (numbersList.length > 0) {
+          numbersList.forEach(number => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${formatPhoneNumber(number)}</td>
+              <td><span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span></td>
+              <td>
+                <button class="action-btn" onclick="showModal('${number}')" title="Remove number">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            `;
+            tabelNomor.appendChild(row);
+          });
+        } else {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td colspan="3" class="empty-state">
+              <div class="empty-icon">
+                <i class="far fa-folder-open"></i>
+              </div>
+              <div class="empty-text">No numbers whitelisted yet</div>
+              <div class="empty-subtext">Add numbers using the form above to get started</div>
+            </td>
+          `;
+          tabelNomor.appendChild(row);
+        }
+      } catch (error) {
+        console.error('Error loading numbers:', error);
+        showToast('Failed to load whitelist', 'error');
+      }
+    }
+
+    // Format phone number for display
+    function formatPhoneNumber(number) {
+      // Simple formatting - you can enhance this further
+      if (number.startsWith('62')) {
+        return number.replace(/^62/, '+62 ');
+      } else if (number.startsWith('+62')) {
+        return number.replace(/^\+62/, '+62 ');
+      } else if (number.length > 4) {
+        // Add space every 4 digits for better readability
+        return number.replace(/(\d{4})(?=\d)/g, '$1 ');
+      }
+      return number;
+    }
+
+    // Check number status
+    async function cekStatus() {
+      const number = nomorInput.value.trim();
+      
+      if (!number) {
+        statusDisplay.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a number first';
+        statusDisplay.className = 'status-display error';
+        return;
+      }
+      
+      // Validate phone number format
+      if (!/^(\+?\d{1,3})?\d{9,15}$/.test(number)) {
+        statusDisplay.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid number format. Use international format (e.g., 6281234567890)';
+        statusDisplay.className = 'status-display error';
+        return;
+      }
+      
+      statusDisplay.innerHTML = '<i class="fas fa-spinner spinner"></i> Checking status...';
+      statusDisplay.className = 'status-display';
+      
+      try {
+        const data = await getCurrentContent();
+        const exists = data.nomor.includes(number);
+        
+        if (exists) {
+          statusDisplay.innerHTML = `<i class="fas fa-check-circle"></i> Number ${formatPhoneNumber(number)} is whitelisted.`;
+          statusDisplay.className = 'status-display success';
+        } else {
+          statusDisplay.innerHTML = `<i class="fas fa-info-circle"></i> Number ${formatPhoneNumber(number)} is not whitelisted.`;
+          statusDisplay.className = 'status-display warning';
+        }
+      } catch (error) {
+        statusDisplay.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed to check status.';
+        statusDisplay.className = 'status-display error';
+        console.error('Error checking status:', error);
+      }
+    }
+
+    // Add number to whitelist
+    async function tambahNomor() {
+      const number = nomorInput.value.trim();
+      
+      if (!number) {
+        statusDisplay.innerHTML = '<i class="fas fa-exclamation-circle"></i> Number cannot be empty!';
+        statusDisplay.className = 'status-display error';
+        return;
+      }
+      
+      // Validate phone number format
+      if (!/^(\+?\d{1,3})?\d{9,15}$/.test(number)) {
+        statusDisplay.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid number format. Use international format (e.g., 6281234567890)';
+        statusDisplay.className = 'status-display error';
+        return;
+      }
+      
+      statusDisplay.innerHTML = '<i class="fas fa-spinner spinner"></i> Adding number to whitelist...';
+      statusDisplay.className = 'status-display';
+      
+      const success = await updateNomor(number, 'add');
+      if (success) {
+        statusDisplay.innerHTML = `<i class="fas fa-check-circle"></i> Number ${formatPhoneNumber(number)} added to whitelist!`;
+        statusDisplay.className = 'status-display success';
+        nomorInput.value = '';
+      } else {
+        statusDisplay.innerHTML = `<i class="fas fa-exclamation-circle"></i> Failed to add ${formatPhoneNumber(number)}`;
+        statusDisplay.className = 'status-display error';
+      }
+    }
+
+    // Initialize the app
+    loadNomor();
+
+    // Focus the input field on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      nomorInput.focus();
+    });
+  </script>
+</body>
+</html>
